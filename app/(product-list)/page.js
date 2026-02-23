@@ -1,13 +1,17 @@
 import { get } from "@/lib/fetch";
 import ProductList from "./components/ProductList";
-import { getProducts } from "@/lib/data";
+import { getInitialProducts } from "@/lib/data";
+import LoadMoreProductList from "./components/LoadMoreProductList";
 
 export default async function Home() {
-  const { results: products } = await getProducts();
+  const { results: products, next } = await getInitialProducts();
   return (
     <div>
-      <h1>홈페이지</h1>
-      <ProductList products={products} />
+      <LoadMoreProductList
+        key="all"
+        initialProducts={products}
+        initialNext={next}
+      />
     </div>
   );
 }
